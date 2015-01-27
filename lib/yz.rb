@@ -3,4 +3,24 @@ require 'yz/version'
 require 'ffi-rzmq'
 
 module Yz
+  class Error < StandardError
+  end
+
+  class << self
+    def zmq_context
+      @zmq_context ||= begin
+        ZMQ::Context.new
+      end
+    end
+
+    def zmq_context=(zmq_context)
+      if @zmq_context
+        raise Yz::Error, "zmq_context is already set"
+      else
+        @zmq_context = zmq_context
+      end
+    end
+  end
+
+  autoload :Client, 'yz/client'
 end
