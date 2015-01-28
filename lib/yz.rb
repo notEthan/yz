@@ -1,6 +1,7 @@
 require 'yz/version'
 
 require 'ffi-rzmq'
+require 'json'
 
 module Yz
   module Protocol
