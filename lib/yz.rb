@@ -3,6 +3,12 @@ require 'yz/version'
 require 'ffi-rzmq'
 
 module Yz
+  module Protocol
+    NAME = 'zy'
+    VERSION = '0.0'
+    FORMAT = 'json'
+  end
+
   class Error < StandardError
   end
 
@@ -23,4 +29,5 @@ module Yz
   end
 
   autoload :Client, 'yz/client'
+  autoload :Request, 'yz/request'
 end

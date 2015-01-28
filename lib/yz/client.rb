@@ -5,9 +5,12 @@ module Yz
       @options = options.map { |k,v| {k.is_a?(Symbol) ? k.to_s : k => v} }.inject({}, &:update)
     end
 
-    def request(request)
-      client_socket.send_string('zy 0.0 json', ZMQ::SNDMORE)
-      client_socket.send_string(JSON.generate(request))
+    def request(object)
+      request = Request.new(object)
+      request.request_strings.each_with_index do |request_s, i|
+        flags = i < request.request_strings.size - 1 ? ZMQ::SNDMORE : 0
+        client_socket.send_string(request_s, flags)
+      end
       reply_strings = []
       more = true
       while more
