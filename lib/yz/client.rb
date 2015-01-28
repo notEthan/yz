@@ -20,7 +20,7 @@ module Yz
         reply_message.close
         more = client_socket.more_parts?
       end
-      reply_strings
+      Reply.new(reply_strings)
     end
 
     private

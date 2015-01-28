@@ -31,4 +31,5 @@ module Yz
 
   autoload :Client, 'yz/client'
   autoload :Request, 'yz/request'
+  autoload :Reply, 'yz/reply'
 end
