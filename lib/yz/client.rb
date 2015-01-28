@@ -6,10 +6,18 @@ module Yz
     end
 
     def request(request)
+      client_socket.send_string('zy 0.0 json', ZMQ::SNDMORE)
       client_socket.send_string(JSON.generate(request))
-      reply_s = ''
-      client_socket.recv_string(reply_s)
-      JSON.parse(reply_s)
+      reply_strings = []
+      more = true
+      while more
+        reply_message = ZMQ::Message.create || raise(ServerError, "failed to create message (errno = #{ZMQ::Util.errno})")
+        recv_rc = client_socket.recvmsg(reply_message)
+        reply_strings << reply_message.copy_out_string
+        reply_message.close
+        more = client_socket.more_parts?
+      end
+      reply_strings
     end
 
     private
