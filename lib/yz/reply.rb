@@ -8,9 +8,8 @@ module Yz
       @protocol_parts = @protocol_string.strip.split(/ +/)
     end
 
-    PROTOCOL_PARTS = ['name', 'version', 'format'].map(&:freeze).freeze
 
-    PROTOCOL_PARTS.each_with_index do |part, i|
+    Yz::Protocol::PARTS.each_with_index do |part, i|
       define_method("protocol_#{part}") do
         @protocol_parts[i]
       end

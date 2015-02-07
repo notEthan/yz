@@ -5,7 +5,7 @@ module Yz
     end
 
     def protocol_string
-      [Protocol::NAME, Protocol::VERSION, Protocol::FORMAT].join(' ')
+      Yz::Protocol::STRING
     end
 
     def request_strings

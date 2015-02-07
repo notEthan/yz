@@ -7,9 +7,12 @@ require 'json'
 
 module Yz
   module Protocol
-    NAME = 'zy'
-    VERSION = '0.0'
-    FORMAT = 'json'
+    NAME = 'zy'.freeze
+    VERSION = '0.0'.freeze
+    FORMAT = 'json'.freeze
+
+    PARTS = [NAME, VERSION, FORMAT].freeze
+    STRING = PARTS.join(' ').freeze
   end
 
   class Error < StandardError
