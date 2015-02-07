@@ -23,6 +23,13 @@ module Yz
       Reply.new(reply_strings)
     end
 
+    ACTIONS = %w(create read update delete index rpc).map(&:freeze).freeze
+    ACTIONS.each do |action|
+      define_method(action) do |resource, params = {}|
+        request({resource: resource, action: action, params: params})
+      end
+    end
+
     private
     def client_socket
       @client_socket ||= begin
