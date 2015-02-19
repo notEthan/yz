@@ -26,5 +26,17 @@ module Yz
     def object
       JSON.parse(@reply_strings[1])
     end
+
+    def success?
+      status && status.is_a?(Array) && status[0] == 'success'
+    end
+
+    def request_error?
+      status && status.is_a?(Array) && status[0..1] == ['error', 'request']
+    end
+
+    def server_error?
+      status && status.is_a?(Array) && status[0..1] == ['error', 'server']
+    end
   end
 end
